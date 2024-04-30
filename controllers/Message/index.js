@@ -2,8 +2,6 @@ const Room = require("../../models/room.model");
 const Message = require("./../../models/message.model");
 const User = require("./../../models/user.model");
 
-// creating messages is kept at service layer as real time messaging
-// is via sockets that utilise this
 const createMessage = async (user, content, room) => {
   console.log(user, content, room);
 
@@ -31,14 +29,9 @@ const createMessage = async (user, content, room) => {
     return { success: false };
   }
 };
-
-// users can get the last few messages of the room,
-// both chat and meet use the same messages and are in sync
 const getMessages = async (req, res) => {
   console.log(req.body);
-
   let { room } = req.body;
-
   try {
     room = await Room.findOne({ roomID: room });
     room = room._id;
@@ -58,7 +51,6 @@ const getMessages = async (req, res) => {
     return res.json({ success: false }).status(500);
   }
 };
-
 module.exports = {
   createMessage,
   getMessages,

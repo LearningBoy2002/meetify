@@ -1,25 +1,15 @@
 const Room = require("./../../models/room.model");
 const { v4: uuidV4 } = require("uuid");
 
-/* 
-
-ALL ROOM ARE PUBLIC in this release
-
- */
-
-// users can create a room with an optional name
-// this allows for rooms that are persistent and can
 const createRoom = async (req, res) => {
   console.log(req.body);
   const { email, name } = req.body;
   const roomID = uuidV4();
-
   room = {
     admin: email,
     name,
     roomID: roomID,
   };
-
   try {
     const roomRes = await Room.create(room);
     res.json({ success: true, room: roomRes }).status(201);
@@ -29,8 +19,6 @@ const createRoom = async (req, res) => {
   }
 };
 
-// to get a room and its admin details
-// so that we can map users with their admins
 const getRoom = async (req, res) => {
   console.log(req.body);
 
@@ -46,8 +34,6 @@ const getRoom = async (req, res) => {
   }
 };
 
-// get all the rooms that are owned/created by a specific user
-// for access on their home page
 const getRoomByUser = async (req, res) => {
   console.log(req.body);
 
@@ -56,7 +42,6 @@ const getRoomByUser = async (req, res) => {
   try {
     const rooms = await Room.find({ admin: email });
     console.log(rooms);
-
     if (!rooms || rooms.length === 0) {
       return res
         .json({ success: false, message: "Room not found" })
@@ -71,9 +56,6 @@ const getRoomByUser = async (req, res) => {
       .status(500);
   }
 };
-
-// to check for validity and render 👇🏻
-// <--------- chat room ---------> 👈🏻
 const chatRoomMW = async (req, res) => {
   try {
     const room = await Room.findOne({ roomID: req.params.room });
@@ -86,8 +68,6 @@ const chatRoomMW = async (req, res) => {
   }
   return res.redirect("/home");
 };
-
-// <--------- meet room ---------> 👈🏻
 const roomMW = async (req, res) => {
   try {
     const room = await Room.findOne({ roomID: req.params.room });
@@ -100,7 +80,6 @@ const roomMW = async (req, res) => {
   }
   return res.redirect("/home");
 };
-
 module.exports = {
   createRoom,
   getRoom,

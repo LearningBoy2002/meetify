@@ -1,13 +1,14 @@
 // Your web app's Firebase configuration
+
 var firebaseConfig = {
-  apiKey: "AIzaSyDUTgqbHDfQHC6Nav6K2EgOhAYGSk7hmeI",
-  authDomain: "authtest-75624.firebaseapp.com",
-  projectId: "authtest-75624",
-  storageBucket: "authtest-75624.appspot.com",
-  messagingSenderId: "522422328170",
-  appId: "1:522422328170:web:40c7fe5f75b6ac59a46313",
+  apiKey: "AIzaSyCCbE3HGVe1B2zy_WILL4yfTEcGN10qbbw",
+  authDomain: "meetify-4edb9.firebaseapp.com",
+  projectId: "meetify-4edb9",
+  storageBucket: "meetify-4edb9.appspot.com",
+  messagingSenderId: "602660238682",
+  appId: "1:602660238682:web:87e77668088b998cf86f63",
+  measurementId: "G-0P2G2GGD8G"
 };
-// Initialize Firebase
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);

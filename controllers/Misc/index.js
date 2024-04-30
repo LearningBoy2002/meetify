@@ -11,7 +11,6 @@ const sendInvite = async (request, response) => {
   console.log(request.body);
   // email = req.body.email;
 
-  // Create a new room for meet
   let newRoom = {
     name: "Meetup at " + new Date(request.body.eventStart).toLocaleString(),
     roomID: uuidV4(),
@@ -37,9 +36,7 @@ const sendInvite = async (request, response) => {
   const eventStartTime = new Date(request.body.eventStart);
 
   const eventEndTime = new Date(request.body.eventEnd);
-
   // evenEndTime.setMinutes(evenEndTime.getMinutes() + 45);
-
   console.log("Start Time : " + eventStartTime);
   console.log("End Time : " + eventEndTime);
   const event = {
@@ -147,10 +144,10 @@ const mail = async (recipient, content) => {
   });
 
   const mailOptions = {
-    from: process.env.email, // sender address
-    to: recipient, // list of receivers
-    subject: "Unite App Feedback", // Subject line
-    html: `<p>${content}</p>`, // plain text body
+    from: process.env.email,
+    to: recipient, 
+    subject: "Unite App Feedback", 
+    html: `<p>${content}</p>`,
   };
 
   const trptRes = await transporter.sendMail(mailOptions);

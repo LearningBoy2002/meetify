@@ -33,9 +33,7 @@
     <!-- Model script -->
     <script type="text/javascript">
       // More API functions here:
-      // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
       console.log = () => {};
-      // the link to your model provided by Teachable Machine export panel
       const URL = "/PoseNetModels/";
       let model, webcam, ctx, labelContainer, maxPredictions;
 
@@ -52,11 +50,7 @@
         // Note: the pose library adds a tmPose object to your window (window.tmPose)
 
         model = await tmPose.load(modelURL, metadataURL);
-        // you need to create File objects, like with file input elements (<input type="file" ...>)
-        // const uploadModel = document.getElementById('upload-model');
-        // const uploadWeights = document.getElementById('upload-weights');
-        // const uploadMetadata = document.getElementById('upload-metadata');
-        // model = await tmPose.loadFromFiles(uploadModel.files[0], uploadWeights.files[0], uploadMetadata.files[0])
+        // you need to create File objects, like with file input elements
         maxPredictions = model.getTotalClasses();
         console.log(maxPredictions);
         // Convenience function to setup a webcam
@@ -100,7 +94,6 @@
         const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
         // Prediction 2: run input through teachable machine classification model
         const prediction = await model.predict(posenetOutput);
-        // console.log(group)
         if (group.length < 100) {
           group.push(prediction);
         } else {
@@ -108,13 +101,11 @@
           group.push(prediction);
         }
         checkPosture(group);
-        // console.log(group)
         for (let i = 0; i < maxPredictions; i++) {
           const classPrediction =
             prediction[i].className +
             ": " +
             prediction[i].probability.toFixed(2);
-          // labelContainer.childNodes[i].innerHTML = classPrediction;
         }
 
         // finally draw the poses
@@ -123,9 +114,7 @@
       function notifyMe(message) {
         // Let's check if the browser supports notifications
         const startover = function () {
-          // console.log('NOTIFICATION CLICKed')
           toggle = true;
-          // console.log(toggle)
           window.requestAnimationFrame(loop);
           group = [];
         };
@@ -180,9 +169,6 @@
           }, 0) / 100
         ).toFixed(3);
 
-        // console.log('good: ',goodposture,' bad: ', badposture)
-        // document.getElementById('good').innerHTML = 'Good: ' + goodposture
-        // document.getElementById('bad').innerHTML = 'Bad: ' + badposture
 
         console.log({ goodposture, badposture, nearscreen });
 
